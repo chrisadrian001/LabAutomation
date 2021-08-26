@@ -1,0 +1,17 @@
+POST https://10.1.1.4/mgmt/tm/net/self/
+
+{
+    "name": "internal-fe-tg2-self",
+    "address": "10.1.20.11/24",
+    "floating": "enabled",
+    "trafficGroup": "/Common/traffic-group-2",
+    "vlan": "/Common/internal"
+}
+
+{
+    "name": "internal-fe-tg3-self",
+    "address": "10.1.20.12/24",
+    "floating": "enabled",
+    "trafficGroup": "/Common/traffic-group-3",
+    "vlan": "/Common/internal"
+}

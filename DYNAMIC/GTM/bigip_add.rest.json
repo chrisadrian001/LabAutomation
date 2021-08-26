@@ -1,0 +1,29 @@
+POST https://10.1.1.8/mgmt/tm/gtm/bigip_add
+NOTE: This should be run against the GTM cluster prior to the dns-services.as3.json declaration.
+
+{
+    "command":"run",
+    "options":[
+        {"ssh-password":"<Password>",
+        "admin@10.1.20.4":""
+        }
+    ]
+}
+
+{
+    "command":"run",
+    "options":[
+        {"ssh-password":"<Password>",
+        "admin@10.1.20.5":""
+        }
+    ]
+}
+
+{
+    "command":"run",
+    "options":[
+        {"ssh-password":"<Password>",
+        "admin@10.1.20.6":""
+        }
+    ]
+}

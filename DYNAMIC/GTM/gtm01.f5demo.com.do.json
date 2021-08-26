@@ -1,0 +1,123 @@
+{
+    "schemaVersion": "1.23.0",
+    "class": "Device",
+    "async": true,
+    "label": "Basic onboarding",
+    "Common": {
+        "class": "Tenant",
+        "hostname": "gtm01.f5demo.com",
+        "myLicense": {
+            "class": "License",
+            "licenseType": "regKey",
+            "regKey": "<License-Key>",
+            "overwrite": true
+        },
+        "myDns": {
+            "class": "DNS",
+            "nameServers": [
+                "4.2.2.2",
+                "8.8.8.8"
+            ],
+            "search": [
+                "f5demo.com"
+            ]
+        },
+        "myNtp": {
+            "class": "NTP",
+            "servers": [
+                "0.pool.ntp.org",
+                "1.pool.ntp.org",
+                "2.pool.ntp.org"
+            ],
+            "timezone": "America/Los_Angeles"
+        },
+        "admin": {
+            "class": "User",
+            "userType": "regular",
+            "shell": "bash"
+        },
+        "myProvisioning": {
+            "class": "Provision",
+            "gtm": "nominal"
+        },
+        "gslbGlobals": {
+            "class": "GSLBGlobals",
+            "general": {
+                "synchronizationEnabled": true,
+                "synchronizationGroupName": "SyncGroup1"
+            }
+        },
+        "internal": {
+            "class": "VLAN",
+            "tag": 4093,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.2",
+                    "tagged": false
+                }
+            ]
+        },
+        "internal-self": {
+            "class": "SelfIp",
+            "address": "10.1.20.8/24",
+            "vlan": "internal",
+            "allowService": "default",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "external": {
+            "class": "VLAN",
+            "tag": 4094,
+            "mtu": 1500,
+            "interfaces": [
+                {
+                    "name": "1.1",
+                    "tagged": false
+                }
+            ]
+        },
+        "external-self": {
+            "class": "SelfIp",
+            "address": "10.1.10.8/24",
+            "vlan": "external",
+            "allowService": "none",
+            "trafficGroup": "traffic-group-local-only"
+        },
+        "default": {
+            "class": "Route",
+            "gw": "10.1.10.1",
+            "network": "default",
+            "mtu": 1500
+        },
+        "configsync": {
+            "class": "ConfigSync",
+            "configsyncIp": "/Common/internal-self/address"
+        },
+        "failoverAddress": {
+            "class": "FailoverUnicast",
+            "address": "/Common/internal-self/address"
+        },
+        "failoverGroup": {
+            "class": "DeviceGroup",
+            "type": "sync-failover",
+            "members": [
+                "gtm01.f5demo.com",
+                "gtm02.f5demo.com"
+            ],
+            "owner": "/Common/failoverGroup/members/0",
+            "autoSync": true,
+            "saveOnAutoSync": false,
+            "networkFailover": true,
+            "fullLoadOnSync": false,
+            "asmSync": false
+        },
+        "trust": {
+            "class": "DeviceTrust",
+            "localUsername": "admin",
+            "localPassword": "<Password>",
+            "remoteHost": "10.1.20.9",
+            "remoteUsername": "admin",
+            "remotePassword": "<Password>"
+        }
+    }
+}

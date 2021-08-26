@@ -1,0 +1,105 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.30.0",
+        "id": "18Aug20201",
+        "label": "gtm config",
+        "Common": {
+            "class": "Tenant",
+            "Shared": {
+                "class": "Application",
+                "template": "shared",
+                "ltm01-3_F5DEMO": {
+                    "class": "GSLB_Server",
+                    "serverType": "bigip",
+                    "dataCenter": {
+                        "bigip": "/Common/DC-1"
+                    },
+                    "devices": [
+                        {"address": "10.1.20.4"},
+                        {"address": "10.1.20.5"},
+                        {"address": "10.1.20.6"}
+                    ],
+                    "virtualServers": [
+                        {
+                            "address": "10.1.10.101",
+                            "port": 443,
+                            "name": "app1.f5demo.com_TG1"
+                        },
+                        {
+                            "address": "10.1.10.102",
+                            "port": 443,
+                            "name": "app1.f5demo.com_TG2"
+                        },
+                        {
+                            "address": "10.1.10.103",
+                            "port": 443,
+                            "name": "app1.f5demo.com_TG3"
+                        }
+                    ]
+                }
+            }
+        },
+        "GSLB_Services": {
+            "class": "Tenant",
+            "Application": {
+                "class": "Application",
+                "template": "generic",
+                "app1.f5demo.com": {
+                    "class": "GSLB_Domain",
+                    "domainName": "app1.f5demo.com",
+                    "resourceRecordType": "A",
+                    "poolLbMode": "round-robin",
+                    "pools": [
+                        {
+                            "use": "app1.f5demo.com_pl"
+                        }
+                    ]
+                },
+                "app1.f5demo.com_pl": {
+                    "class": "GSLB_Pool",
+                    "resourceRecordType": "A",
+                    "members": [
+                        {
+                            "server": {
+                                "use": "/Common/Shared/ltm01-3_F5DEMO"
+                            },
+                            "virtualServer": "app1.f5demo.com_TG1",
+                            "enabled": true
+                        },
+                        {
+                            "server": {
+                                "use": "/Common/Shared/ltm01-3_F5DEMO"
+                            },
+                            "virtualServer": "app1.f5demo.com_TG2",
+                            "enabled": true
+                        },
+                        {
+                            "server": {
+                                "use": "/Common/Shared/ltm01-3_F5DEMO"
+                            },
+                            "virtualServer": "app1.f5demo.com_TG3",
+                            "enabled": true
+                        }
+                    ]
+                },
+                "DNS_Listener": {
+                    "class": "Service_UDP",
+                    "profileDNS": {
+                        "bigip": "/Common/dns"
+                    },
+                    "profileUDP": {
+                        "bigip": "/Common/udp"
+                    },
+                    "virtualPort": 53,
+                    "virtualAddresses": [
+                        "10.1.10.53"
+                    ]
+                }
+            }
+        }
+    }
+}

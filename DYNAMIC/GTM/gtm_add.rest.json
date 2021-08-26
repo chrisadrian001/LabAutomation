@@ -1,0 +1,12 @@
+POST https://10.1.1.8/mgmt/tm/gtm/gtm_add
+NOTE: gtm_add will PULL config, so run from unit w/o DC config.
+NOTE: Admin account needs shell access.
+
+{
+    "command":"run",
+    "options":[
+        {"ssh-password":"<Password>",
+        "-y admin@10.1.20.9":""
+        }
+    ]
+}

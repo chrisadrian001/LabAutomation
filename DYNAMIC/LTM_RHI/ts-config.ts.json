@@ -1,0 +1,42 @@
+{
+    "class": "Telemetry",
+    "My_System": {
+        "class": "Telemetry_System",
+        "systemPoller": {
+            "interval": 60
+        }
+    },
+    "My_Listener": {
+        "class": "Telemetry_Listener",
+        "port": 6514
+    },
+    "My_Consumer_sysLog": {
+        "class": "Telemetry_Consumer",
+        "type": "Statsd",
+        "host": "10.1.1.7",
+        "protocol": "udp",
+        "port": 514
+    },
+    "My_Consumer_http": {
+        "class": "Telemetry_Consumer",
+        "type": "Generic_HTTP",
+        "host": "10.1.1.7",
+        "protocol": "https",
+        "port": 443,
+        "path": "/",
+        "method": "POST",
+        "headers": [
+            {
+                "name": "content-type",
+                "value": "application/json"
+            },
+            {
+                "name": "x-api-key",
+                "value": "`>@/passphrase`"
+            }
+        ],
+        "passphrase": {
+            "cipherText": "apikey"
+        }
+    }
+}
