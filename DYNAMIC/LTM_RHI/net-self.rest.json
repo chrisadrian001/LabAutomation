@@ -15,3 +15,19 @@ POST https://10.1.1.4/mgmt/tm/net/self/
     "trafficGroup": "/Common/traffic-group-3",
     "vlan": "/Common/internal"
 }
+
+{
+    "name": "external-fe-tg2-self",
+    "address": "10.1.10.11/24",
+    "floating": "enabled",
+    "trafficGroup": "/Common/traffic-group-2",
+    "vlan": "/Common/external"
+}
+
+{
+    "name": "external-fe-tg3-self",
+    "address": "10.1.10.12/24",
+    "floating": "enabled",
+    "trafficGroup": "/Common/traffic-group-3",
+    "vlan": "/Common/external"
+}
