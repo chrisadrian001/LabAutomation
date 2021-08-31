@@ -22,7 +22,7 @@
                     }
                 ],
                 "profileTrafficLog": {
-                    "use": "/Common/Shared/telemetry_traffic_log_profile"
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
                 },
                 "serverTLS": { "bigip": "/Common/clientssl"
         		},
@@ -38,7 +38,7 @@
                     }
                 ],
                 "profileTrafficLog": {
-                    "use": "/Common/Shared/telemetry_traffic_log_profile"
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
                 },
                 "serverTLS": { "bigip": "/Common/clientssl"
         		},
@@ -54,7 +54,7 @@
                     }
                 ],
                 "profileTrafficLog": {
-                    "use": "/Common/Shared/telemetry_traffic_log_profile"
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
                 },
                 "serverTLS": { "bigip": "/Common/clientssl"
         		},
