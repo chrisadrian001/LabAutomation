@@ -1,0 +1,118 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.19.0",
+        "id": "26JULY2021_001",
+        "label": "app1.f5demo.com",
+        "remark": "http(s)://app1.f5demo.com TG1-3",
+        "app1.f5demo.com": {
+            "class": "Tenant",
+            "defaultRouteDomain": 0,
+            "app1.f5demo.com": {
+                "class": "Application",
+                "template": "generic",
+            "app1.f5demo.com_TG1": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    {
+                        "use": "app1_TG1"
+                    }
+                ],
+                "profileTrafficLog": {
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
+                },
+                "serverTLS": { "bigip": "/Common/clientssl"
+        		},
+                "profileHTTP": { "bigip": "/Common/http"
+        		},
+                "iRules": [
+                    "tsiRule"
+                ],
+                "pool": "app1.f5demo.com_pl"
+                },
+            "app1.f5demo.com_TG2": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    {
+                        "use": "app1_TG2"
+                    }
+                ],
+                "profileTrafficLog": {
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
+                },
+                "serverTLS": { "bigip": "/Common/clientssl"
+        		},
+                "profileHTTP": { "bigip": "/Common/http"
+        		},
+                "iRules": [
+                    "tsiRule"
+                ],
+                "pool": "app1.f5demo.com_pl"
+                },
+            "app1.f5demo.com_TG3": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    {
+                        "use": "app1_TG3"
+                    }
+                ],
+                "profileTrafficLog": {
+                    "bigip": "/Common/Shared/telemetry_traffic_log_profile"
+                },
+                "serverTLS": { "bigip": "/Common/clientssl"
+        		},
+                "profileHTTP": { "bigip": "/Common/http"
+        		},
+                "iRules": [
+                    "tsiRule"
+                ],
+                "pool": "app1.f5demo.com_pl"
+                },
+                "app1_TG1": {
+                    "class": "Service_Address",
+                 "virtualAddress": "10.1.10.101",
+                 "trafficGroup": "traffic-group-1",
+                 "arpEnabled": false,
+                 "routeAdvertisement": "enable"
+                },
+                "app1_TG2": {
+                    "class": "Service_Address",
+                 "virtualAddress": "10.1.10.102",
+                 "trafficGroup": "traffic-group-2",
+                 "arpEnabled": false,
+                 "routeAdvertisement": "enable"
+                },
+                "app1_TG3": {
+                    "class": "Service_Address",
+                 "virtualAddress": "10.1.10.103",
+                 "trafficGroup": "traffic-group-3",
+                 "arpEnabled": false,
+                 "routeAdvertisement": "enable"
+                },
+                "app1.f5demo.com_pl": {
+                    "class": "Pool",
+                "monitors": [
+                    {
+                        "bigip": "/Common/tcp"
+                    }
+                ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "event"
+                        }
+                    ]
+                },
+                "tsiRule": {
+                    "class": "iRule",
+                    "iRule": {
+                        "base64": "d2hlbiBDTElFTlRfQUNDRVBURUQgewogICAgc2V0IGNsaWVudF9hZGRyZXNzIFtJUDo6Y2xpZW50X2FkZHJdCiAgICBzZXQgdmlwIFtJUDo6bG9jYWxfYWRkcl0KICAgIHNldCBoc2xwb29sIC9Db21tb24vU2hhcmVkL3RlbGVtZXRyeQogICAgc2V0IGhzbCBbSFNMOjpvcGVuIC1wcm90byBUQ1AgLXBvb2wgJGhzbHBvb2xdCn0Kd2hlbiBIVFRQX1JFUVVFU1QgewogICAgc2V0IHZpcnR1YWxfc2VydmVyIFtMQjo6c2VydmVyXQogICAgc2V0IGh0dHBfdXJpIFtIVFRQOjp1cmldCiAgICBzZXQgaHR0cF9tZXRob2QgW0hUVFA6Om1ldGhvZF0KICAgIHNldCB1c2VyX2FnZW50IFtIVFRQOjpoZWFkZXIgIlVzZXItQWdlbnQiXQogICAgc2V0IGV2ZW50X3NvdXJjZSAiaVJ1bGVfbG9nZ2luZyIKICAgIEhTTDo6c2VuZCAkaHNsICJldmVudF9zb3VyY2U9XCIkZXZlbnRfc291cmNlXCIsdmlydHVhbF9zZXJ2ZXI9XCIkdmlydHVhbF9zZXJ2ZXJcIixodHRwX3VyaT1cIiRodHRwX3VyaVwiLGh0dHBfbWV0aG9kPVwiJGh0dHBfbWV0aG9kXCIsc3JjX2lwPVwiJGNsaWVudF9hZGRyZXNzXCIsdXNlcl9hZ2VudD1cIiR1c2VyX2FnZW50XCJcclxuIgp9"
+                    }
+                }
+            }
+        }
+    }
+}

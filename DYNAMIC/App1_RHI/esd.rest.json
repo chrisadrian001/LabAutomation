@@ -1,0 +1,12 @@
+https://10.1.10.4/mgmt/shared/service-discovery/task/~app1.f5demo.com~app1.f5demo.com~app1.f5demo.com_pl/nodes
+
+[
+    {
+        "id": "newNode1",
+        "ip": "192.0.2.3"
+    },
+    {
+        "id": "NewNode2",
+        "ip": "192.0.2.4"
+    }
+]
