@@ -1,0 +1,59 @@
+{
+    "class": "AS3",
+    "action": "deploy",
+    "persist": true,
+    "declaration": {
+        "class": "ADC",
+        "schemaVersion": "3.19.0",
+        "id": "21OCT2021_001",
+        "label": "app1.f5demo.com",
+        "remark": "http(s)://app1.f5demo.com",
+        "app1.f5demo.com": {
+            "class": "Tenant",
+            "defaultRouteDomain": 0,
+            "app1.f5demo.com": {
+                "class": "Application",
+                "template": "generic",
+            "app1.f5demo.com_TG1": {
+                "class": "Service_HTTPS",
+                "virtualAddresses": [
+                    {
+                        "use": "app1_TG1"
+                    }
+                ],
+                "serverTLS": { "bigip": "/Common/clientssl"
+        		},
+                "profileHTTP": { "bigip": "/Common/http"
+        		},
+                "iRules": [
+                    {
+                        "bigip": "/Common/BlocklistIP_Rule"
+                    }
+                ],
+                "pool": "app1.f5demo.com_pl"
+                },
+                "app1_TG1": {
+                    "class": "Service_Address",
+                 "virtualAddress": "10.1.10.101",
+                 "trafficGroup": "traffic-group-1",
+                 "arpEnabled": false,
+                 "routeAdvertisement": "enable"
+                },
+                "app1.f5demo.com_pl": {
+                    "class": "Pool",
+                "monitors": [
+                    {
+                        "bigip": "/Common/tcp"
+                    }
+                ],
+                    "members": [
+                        {
+                            "servicePort": 80,
+                            "addressDiscovery": "event"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

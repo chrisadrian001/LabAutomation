@@ -1,0 +1,16 @@
+CREATE:
+POST https://10.1.1.4/mgmt/tm/ltm/rule/
+
+{
+    "name": "BlocklistIP_Rule",
+    "apiAnonymous": "when FLOW_INIT {\n    if { [class match [IP::remote_addr] equals BlocklistIP_DataGroup]} {\n        log local0. \"Attacker IP [IP::client_addr]\"\n        drop\n    }\n}"
+}
+
+READ:
+GET: https://10.1.1.4/mgmt/tm/ltm/rule/~Common~BlocklistIP_Rule
+
+UPDATE:
+PATCH: https://10.1.1.4/mgmt/tm/ltm/rule/~Common~BlocklistIP_Rule
+{
+    "apiAnonymous": "when FLOW_INIT {\n    if { [class match [IP::remote_addr] equals BlocklistIP_DataGroup]} {\n        log local0. \"Rejecting IP [IP::client_addr]\"\n        reject\n    }\n}"
+}

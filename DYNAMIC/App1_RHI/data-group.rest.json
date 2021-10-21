@@ -1,0 +1,33 @@
+CREATE
+POST: https://10.1.1.4/mgmt/tm/ltm/data-group/internal/
+
+{
+    "name": "BlocklistIP_DataGroup",
+    "type": "ip",
+    "records": [
+     {
+      "name":"1.1.1.1/32",
+      "tagged":true
+      }
+    ]
+}
+
+READ
+GET: https://10.1.1.4/mgmt/tm/ltm/data-group/internal/~Common~BlocklistIP_DataGroup
+
+
+UPDATE
+PATCH: https://10.1.1.4/mgmt/tm/ltm/data-group/internal/~Common~BlocklistIP_DataGroup
+
+{
+    "records": [
+      {
+        "name": "1.1.1.1/32",
+        "data": ""
+      },
+      {
+        "name": "2.2.2.2/32",
+        "data": ""
+      }
+    ]
+  }
